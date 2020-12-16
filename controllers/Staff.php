@@ -63,36 +63,34 @@ elseif ($methods == "selectall" || $methods == "getall"){
  * @param $role   
  ***/
 
-function insertStaff($staff,$key, $firstName,$lastName,$password,$confirm_password,$passport,$email,$role,$staff_id,$phonenumber,$address,$gender,$type,$access_id){
+function insertStaff($staff,$key, $fullname,$password,$confirm_password,$passport,$email,$role,$staff_id,$department){
 
     if ($key == "1234567opiuyt") {
 
-        if (empty($firstName)
-        || empty($lastName)
+        if ( empty($fullname)
         || empty($password)
         || empty($confirm_password)
         || empty($passport)
         || empty($email)
         || empty($role)
+        || empty($department)
     ){
             echo "<div class='alert alert-danger'><b>Fields can't be empty!</b>   Please fill and try again</div>";
         }else{
-                $uploaded = uploadImage ($passport,"./loadedImage/");
+                $uploaded = uploadImage ($passport,"../loadedImage/");
               if ( $uploaded[0] !== "TRUE" ){
                         echo $uploaded[0];
               }else{
-                // ["TRUE",$passportName,$targePath];
                 if ($password != $confirm_password ){
 
                     echo "<div class='alert alert-danger'><b>Password not match!</b>   Please Confirm!</div>";
     
                 }else {
 
-                    if($staff->saveStaff("`staff_tbl`(`id`, `staff_id`, `firstname`, `lastname`, `email`, `password`, `phonenumber`,
-                     `address`, `gender`, `type`, `access_id`, `image`, `path`, `date`, `status`, `deleted`, `role`)",
-                        "VALUES (null,'$staff_id','$firstName','$lastName', '$email','$password','$phonenumber'
-                        ,'$address','$gender','$type','$access_id','$uploaded[1]','$uploaded[2]'
-                        ,now(),'0','0','$role')")){
+                    if($staff->saveStaff("`staff_tbl`(`id`, `staff_id`, `fullname`, `email`, `password`, `department`,
+                     `role`, `image`, `path`, `date`, `status`, `deleted`)",
+                        "VALUES (null,'$staff_id','$fullname', '$email','$password','$department'
+                        ,'$role','$uploaded[1]','$uploaded[2]',now(),'0','0')")){
     
                             echo "<div class='alert alert-success'><b> Congratulations!</b>  staff registered successfully</div>";
                     }else{
@@ -134,6 +132,7 @@ function loginStaff ($staff,$key, $staff_email,$staff_password){
                     if(count($staff_Online) > 0){
                           $_SESSION["staff_Online_fullName"] = $staff_Online[0]["fullname"] ;
                           $_SESSION["staff_Online_id"] = $staff_Online[0]["id"];
+                          $_SESSION["staff_Online_role"] = $staff_Online[0]["role"];
                           echo "<script> location.replace('../staffChat');</script>";
 
                     }else{

@@ -1,6 +1,6 @@
 <?php
 
-$dev_type__ = 'pro';
+$dev_type__ = 'dev';
 $server__  =  $dev_type__ === "dev" ? "localhost" : "us-cdbr-east-02.cleardb.com";
 $username__  =  $dev_type__ === "dev" ? "root" : "badbed6af492a1";
 $password__  =  $dev_type__ === "dev" ? "" : "68ec4889";
@@ -11,7 +11,6 @@ define("DBNAME",$dbname__);
 define("USERNAME",$username__);
 define("PASSWORD",$password__);
 
-echo $dbname__." 8888888";
 /**
  * Class DbHandler v2.0
  * This class handles database connection and execution

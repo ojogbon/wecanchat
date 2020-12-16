@@ -54,9 +54,10 @@
 
     if(count($_SESSION) > 1){
 
-        if(isset($_SESSION["_Online_fullName"])){
-            $staff_Online_fullName =  $_SESSION["_Online_fullName"];
-            $user_id = $_SESSION["member_Online_id"];
+        if(isset($_SESSION["staff_Online_fullName"])){
+            $staff_Online_fullName =  $_SESSION["staff_Online_fullName"];
+            $staff_id = $_SESSION["staff_Online_id"];
+            $staff_role =   $_SESSION["staff_Online_role"];
             
             // $staff_Online_role = $_SESSION["staff_Online_role"];
             // $staff_Online_passport =  $_SESSION["staff_Online_passport"];
