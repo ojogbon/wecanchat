@@ -1,6 +1,6 @@
 <?php
 
-$dev_type__ = 'dev';
+$dev_type__ = 'pro';
 $server__  =  $dev_type__ === "dev" ? "localhost" : "us-cdbr-east-02.cleardb.com";
 $username__  =  $dev_type__ === "dev" ? "root" : "badbed6af492a1";
 $password__  =  $dev_type__ === "dev" ? "" : "68ec4889";
