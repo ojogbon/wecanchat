@@ -40,7 +40,7 @@ function insertMessage($message,$key, $sender,$reciever,$msg,$type){
                      `msg`, `type`, `date`, `status`, `deleted`) ",
                         "VALUES (null,'$sender','$reciever', '$msg','$type',now(),'0','0')")){
     
-                              echo "<script type='text/javascript'> window.location.replace('chat.php?reciever=".$reciever."&key=&action_type=&function_type&staff_id');</script>";
+                              echo "<script type='text/javascript'> window.location.replace('index.php?reciever=".$reciever."&key=&action_type=&function_type&staff_id');</script>";
                     }else{
     
                             echo "<div class='alert alert-danger'><b> We are very Sorry, Something happened!</b>   Please try again</div>";

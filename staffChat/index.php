@@ -192,7 +192,7 @@ include "../controllers/Message.php";
 
 									?>
 							<div class="blog-entry">
-								<a href="chat.php?reciever=<?php echo $listOfStaffs[$individualStaffs]["id"]?>&key=&action_type=&function_type&staff_id">
+								<a href="index.php?reciever=<?php echo $listOfStaffs[$individualStaffs]["id"]?>&key=&action_type=&function_type&staff_id">
 									<img style="width:5em;" src="<?php echo "../loadedImage/".$listOfStaffs[$individualStaffs]["image"]?>" class="img-responsive" alt="">
 									<div class="desc">
 										<span class="date"></span>
