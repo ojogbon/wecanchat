@@ -3,13 +3,8 @@
 
 
     include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Staff.php');
-    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Suscribers.php');
-    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Contact.php');
-    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Invest.php');
-    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Member.php');
-    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Testimonial.php');
-    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Withdraw.php');
-    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Activity.php');
+    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Message.php');
+
     
 
 
@@ -19,13 +14,7 @@
 
     
     $staff = new Staff();
-    $suscribers = new Suscribers();
-    $contact = new Contact();
-    $invest = new Invest();
-    $member = new Member();
-    $testimonial = new Testimonial();
-    $withdraw = new Withdraw();
-    $activity = new Activity();
+    $message = new Message();
 
     if(!empty($_GET) ){
         $key = $_GET["key"];

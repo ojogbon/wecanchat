@@ -1,6 +1,6 @@
 
 <?php include "../controllers/Central.php";
-include "../controllers/Staff.php";
+include "../controllers/Message.php";
 
 ?>
 <!DOCTYPE HTML>
@@ -13,6 +13,7 @@ include "../controllers/Staff.php";
 	<meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
 	<meta name="author" content="freehtml5.co" />
+
 
 
   	<!-- Facebook and Twitter integration -->
@@ -52,12 +53,49 @@ include "../controllers/Staff.php";
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
+	<style>
+		.message_Frame {
+			border: 1px solid;
+    padding: 10px;
+    margin: 2px;
+	height: 400px;
+    overflow: scroll;
+		}
+
+		.sentMessage {
+			border: 1px solid #a5a5de;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    border-top-right-radius: 9px;
+    padding: 5px;
+    background-color: #a5a5de;
+    color: #fff;
+    width: fit-content;
+    margin: 5px;
+		}
+
+		.recieveMessage {
+			border: 1px solid #eadb9a;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    border-top-right-radius: 9px;
+    padding: 5px;
+    background-color: #eadb9a;
+    color: #fff;
+    width: fit-content;
+    margin: 5px;
+		}
+
+
+
+	</style>
 	</head>
 	<body>
 		
-	<div class="fh5co-loader"></div>
+	<!-- <div class="fh5co-loader"></div> -->
 	
 	<div id="page">
+		<?php include "./nav/navbar.php";?>
 	<nav class="fh5co-nav" role="navigation">
 		<div class="container-fluid">
 			
@@ -81,92 +119,71 @@ include "../controllers/Staff.php";
 		<div class="container">
 			<div class="row animate-box">
 				<div class="col-md-12 col-md-offset-0 text-center fh5co-heading">
-					<h2><span>Add new Staff</span></h2>
+					<h2><span>Chat Now</span></h2>
 				</div>
 			</div>
 			<div class="row">
+				<?php 	
+				
+						if(!empty($_GET)){
+						$reciver_id = $_GET["reciever"];
+						
+					if (!empty($reciver_id) || $reciver_id === NULL ){
+				?>
 				<div class="col-md-9 col-padded-right">
+						<div  class="row message_Frame">
+						<?php
+									
+									$sqlQuery = "select * from message where sender = '".$staff_id."' and reciever	 = '".$reciver_id."' OR sender ='".$reciver_id."' and reciever = '".$staff_id."'";
+									$listOfMessages = $message->getAllMessageBySql($sqlQuery);
+
+									foreach($listOfMessages  as $individualMessages => $value){
+
+										$classType = $listOfMessages[$individualMessages]["sender"] === $staff_id ? "sentMessage":"recieveMessage";
+									?>
+							<p class="<?php echo $classType; ?>"> <?php echo $listOfMessages[$individualMessages]["msg"]; ?></p>
+									<?php }?>
+						</div>
 					<form method="post" enctype="multipart/form-data">
 						<div class="form-group row">
-							<div class="col-md-6 field">
-								<label for="firstname">First Name</label>
-								<input type="text" name="FName" id="firstname" class="form-control">
+							<div class="col-md-9 field">
+								<input type="text" name="search" id="search" class="form-control" placeholder="Type something...">
 							</div>
-							<div class="col-md-6 field">
-								<label for="lastname">Last Name</label>
-								<input type="text" name="LName" id="lastname" class="form-control">
+							<div class="col-md-3 field">
+							<button type="submit" id="submit" name="saveDetails" class="btn btn-primary" >send</button>
 							</div>
 						</div>
-						<div class="form-group row">
-							<div class="col-md-6 field">
-								<label for="email">Email</label>
-								<input type="text" name="emailit" id="email" class="form-control">
-							</div>
-							<div class="col-md-6 field">
-								<label for="phone">Department</label>
-								<input type="text" name="department" id="phone" class="form-control">
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-md-6 field">
-								<label for="role">Role</label>
-								<select  name="role" id="role" class="form-control">
-									<option value="staff">Staff</option>
-									<option value="admin">Admin</option>
-								</select>
-							</div>
-							<div class="col-md-6 field">
-								<label for="picture">Picture</label>
-								<input type="file" name="picture" id="picture" class="form-control">
-							</div>
-						</div>
-
-						<div class="form-group row">
-						<div class="col-md-6 field">
-								<label for="password">Password</label>
-								<input type="password" name="passwordit" id="password" class="form-control">
-							</div>
-							<div class="col-md-6 field">
-								<label for="confirmpassword">Confirm password</label>
-								<input type="password" name="confirmpassword" id="confirmpassword" class="form-control">
-							</div>
-						</div>
+						
+						
 					
 						<div class="form-group row">
 							<div class="col-md-12 field">
-								<button type="submit" id="submit" name="saveDetails" class="btn btn-primary" >Save Staff Details</button>
+								
 							</div>
 						</div>
 						<?php 
 						
 							if(isset($_POST["saveDetails"])){
 
-								$department = $_POST["department"];
-								$role = $_POST["role"];
-								$emailit = $_POST["emailit"];
-								$FirstName = $_POST["FName"]; 
-								$LastName = $_POST["LName"];
-								$password = $_POST["passwordit"];
-								$confirmpassword = $_POST["confirmpassword"];
-
-								$fullname = $FirstName ." ". $LastName;
+								$search = $_POST["search"];
 								
-								$key = "1234567opiuyt";
-								insertStaff($staff,$key, $fullname,$password,$confirmpassword,"picture",$emailit,$role,$staff_id,$department);
-							}
+							
+
+								 $type = "text";
+								 $key = "1234567opiuyt";
+								 insertMessage($message,$key, $staff_id,$reciver_id,$search,$type);
+								}
 						?>
 					</form>
 				</div>
-				
+						<?php }}?>
 				<aside id="sidebar">
 					<div class="col-md-3">
-						
-						<div class="side animate-box">
+					<div class="side animate-box">
 							<div class="col-md-12 col-md-offset-0 text-center fh5co-heading fh5co-heading-sidebar">
-								<h2><span>Registered Staffs</span></h2>
+								<h2><span> Staff Online</span></h2>
 							</div>
-							<ul class="category">
-									<?php
+							<?php
 									
 									$sqlQuery = "select * from staff_tbl where id != '".$staff_id."'";
 									$listOfStaffs = $staff->getAllStaffBySql($sqlQuery);
@@ -174,10 +191,19 @@ include "../controllers/Staff.php";
 									foreach($listOfStaffs  as $individualStaffs => $value){
 
 									?>
-								<li><a href="#"><i class="icon-check"></i><?php echo $listOfStaffs[$individualStaffs]["fullname"]?></a></li>
-									<?php }?>
-							</ul>
+							<div class="blog-entry">
+								<a href="chat.php?reciever=<?php echo $listOfStaffs[$individualStaffs]["id"]?>&key=&action_type=&function_type&staff_id">
+									<img style="width:5em;" src="<?php echo "../loadedImage/".$listOfStaffs[$individualStaffs]["image"]?>" class="img-responsive" alt="">
+									<div class="desc">
+										<span class="date"></span>
+										<h3><?php echo $listOfStaffs[$individualStaffs]["fullname"]?></h3>
+									</div>
+								</a>
+							</div>
+							<?php }?>
+							
 						</div>
+					
 					</div>
 					
 				</aside>
