@@ -15,6 +15,7 @@
                             ?>
                             <li><a href="blog.html">Add new Staff</a></li>
                             <?php }?>
+                            <li class=""><a href="logout.php">Logout</a></li>
                         </ul>
                     </div>
                     
