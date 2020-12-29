@@ -38,41 +38,60 @@ include "../controllers/Member.php";
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41">
-					Account Login
+					Client  Registration
 				</span>
 				<form class="login100-form validate-form p-b-33 p-t-5" method="post">
 
-					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text"  placeholder="Clien Email" name="username_init">
+                <div class="wrap-input100 validate-input" data-validate = "Enter Firstname">
+						<input class="input100" type="text"  placeholder="First name eg: matinx" name="firstname_init">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                 </div>
+
+                 <div class="wrap-input100 validate-input" data-validate = "Enter Lastname">
+						<input class="input100" type="text"  placeholder="Last name eg: tunde" name="lastname_init">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                 </div>
+                    
+					<div class="wrap-input100 validate-input" data-validate = "Enter email">
+						<input class="input100" type="text"  placeholder="Email eg: example@gmail.com" name="email_init">
 						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 					</div>
 
+                    <hr>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<input class="input100" type="password" name="pass_init" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                    </div>
+                    
+                    <div class="wrap-input100 validate-input" data-validate="Enter confirm password">
+						<input class="input100" type="password" name="conpass_init" placeholder="Confirm Password">
 						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 					</div>
 
 					<div class="container-login100-form-btn m-t-32">
 						<button name="login_in" type="submit" class="login100-form-btn">
-							Login
-						</button> <br>
-						<br>
+							Register
+                        </button>
+                        <br>
 
 						<?php 
 						
 							if(isset($_POST["login_in"])){
-									$username = $_POST["username_init"];
-									$password = $_POST["pass_init"];
+                                $firstname = $_POST["firstname_init"];
+                                $lastname = $_POST["lastname_init"];
+									$email = $_POST["email_init"];
+                                    $password = $_POST["pass_init"];
+                                    $conpass = $_POST["conpass_init"];
 
 									$key = "1234567opiuyt";
-									loginMember ($member,$key, $username,$password);
+									insertMember($member,$key, $firstname, $lastname,$email,$password,$conpass);
 							}
 						
 						?>
 					</div>
 
-				</form>
-				<a href="./register.php" style="    padding-left: 15%;">Not yet a member? Join us Instead</a>
+                </form>
+                <a href="./index.php" style="    padding-left: 15%;">Already a member a member? Login Instead</a>
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 
 <?php include "../controllers/Central.php";
-include "../controllers/Member.php";
+include "../controllers/Staff.php";
 
 ?>
 <!DOCTYPE html>
@@ -43,7 +43,7 @@ include "../controllers/Member.php";
 				<form class="login100-form validate-form p-b-33 p-t-5" method="post">
 
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text"  placeholder="Clien Email" name="username_init">
+						<input class="input100" type="text"  placeholder="User name" name="username_init">
 						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 					</div>
 
@@ -55,9 +55,7 @@ include "../controllers/Member.php";
 					<div class="container-login100-form-btn m-t-32">
 						<button name="login_in" type="submit" class="login100-form-btn">
 							Login
-						</button> <br>
-						<br>
-
+                        </button>
 						<?php 
 						
 							if(isset($_POST["login_in"])){
@@ -65,14 +63,13 @@ include "../controllers/Member.php";
 									$password = $_POST["pass_init"];
 
 									$key = "1234567opiuyt";
-									loginMember ($member,$key, $username,$password);
+									loginStaff ($staff,$key, $username,$password);
 							}
 						
 						?>
 					</div>
 
 				</form>
-				<a href="./register.php" style="    padding-left: 15%;">Not yet a member? Join us Instead</a>
 			</div>
 		</div>
 	</div>

@@ -90,70 +90,40 @@ include "../controllers/Staff.php";
 					<form method="post" enctype="multipart/form-data">
 						<div class="form-group row">
 							<div class="col-md-6 field">
-								<label for="firstname">First Name</label>
-								<input type="text" name="FName" id="firstname" class="form-control">
-							</div>
-							<div class="col-md-6 field">
-								<label for="lastname">Last Name</label>
-								<input type="text" name="LName" id="lastname" class="form-control">
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-md-6 field">
-								<label for="email">Email</label>
-								<input type="text" name="emailit" id="email" class="form-control">
-							</div>
-							<div class="col-md-6 field">
-								<label for="phone">Department</label>
-								<input type="text" name="department" id="phone" class="form-control">
-							</div>
-						</div>
-						<div class="form-group row">
-							<div class="col-md-6 field">
-								<label for="role">Role</label>
-								<select  name="role" id="role" class="form-control">
-									<option value="staff">Staff</option>
-									<option value="admin">Admin</option>
+								<label for="firstname">Select Staff to delete </label>
+								<select  name="staffdelete" id="staffdelete" class="form-control">
+								<?php
+									
+									$sqlQuery = "select * from staff_tbl where id != '".$staff_id."' and status = '0'";
+									$listOfStaffs = $staff->getAllStaffBySql($sqlQuery);
+
+									foreach($listOfStaffs  as $individualStaffs => $value){
+
+									?>
+										<option value="<?php echo $listOfStaffs[$individualStaffs]["id"]?>"><?php echo $listOfStaffs[$individualStaffs]["fullname"]?></option>
+									<?php }?>
+
 								</select>
 							</div>
 							<div class="col-md-6 field">
-								<label for="picture">Picture</label>
-								<input type="file" name="picture" id="picture" class="form-control">
-							</div>
-						</div>
-
-						<div class="form-group row">
-						<div class="col-md-6 field">
-								<label for="password">Password</label>
-								<input type="password" name="passwordit" id="password" class="form-control">
-							</div>
-							<div class="col-md-6 field">
-								<label for="confirmpassword">Confirm password</label>
-								<input type="password" name="confirmpassword" id="confirmpassword" class="form-control">
-							</div>
-						</div>
-					
-						<div class="form-group row">
 							<div class="col-md-12 field">
 								<button type="submit" id="submit" name="saveDetails" class="btn btn-primary" >Save Staff Details</button>
 							</div>
+							</div>
+						</div>
+					
+					
+						<div class="form-group row">
+						
 						</div>
 						<?php 
 						
 							if(isset($_POST["saveDetails"])){
 
-								$department = $_POST["department"];
-								$role = $_POST["role"];
-								$emailit = $_POST["emailit"];
-								$FirstName = $_POST["FName"]; 
-								$LastName = $_POST["LName"];
-								$password = $_POST["passwordit"];
-								$confirmpassword = $_POST["confirmpassword"];
-
-								$fullname = $FirstName ." ". $LastName;
+								$staffdelete = $_POST["staffdelete"];
 								
 								$key = "1234567opiuyt";
-								insertStaff($staff,$key, $fullname,$password,$confirmpassword,"picture",$emailit,$role,$staff_id,$department);
+								deleteStaff ($staff,$key,$staffdelete);
 							}
 						?>
 					</form>
@@ -162,23 +132,7 @@ include "../controllers/Staff.php";
 				<aside id="sidebar">
 					<div class="col-md-3">
 						
-						<div class="side animate-box">
-							<div class="col-md-12 col-md-offset-0 text-center fh5co-heading fh5co-heading-sidebar">
-								<h2><span>Registered Staffs</span></h2>
-							</div>
-							<ul class="category">
-									<?php
-									
-									$sqlQuery = "select * from staff_tbl where id != '".$staff_id."'";
-									$listOfStaffs = $staff->getAllStaffBySql($sqlQuery);
-
-									foreach($listOfStaffs  as $individualStaffs => $value){
-
-									?>
-								<li><a href="#"><i class="icon-check"></i><?php echo $listOfStaffs[$individualStaffs]["fullname"]?></a></li>
-									<?php }?>
-							</ul>
-						</div>
+						
 					</div>
 					
 				</aside>

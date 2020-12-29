@@ -4,6 +4,8 @@
 
     include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Staff.php');
     include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Message.php');
+    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Member.php');
+    include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Contact.php');
 
     
 
@@ -15,6 +17,8 @@
     
     $staff = new Staff();
     $message = new Message();
+    $member = new Member();
+    $contact = new Contact();
 
     if(!empty($_GET) ){
         $key = $_GET["key"];
@@ -42,14 +46,16 @@
     }
 
     if(count($_SESSION) > 1){
-
+            $starter = 0;
         if(isset($_SESSION["staff_Online_fullName"])){
             $staff_Online_fullName =  $_SESSION["staff_Online_fullName"];
             $staff_id = $_SESSION["staff_Online_id"];
             $staff_role =   $_SESSION["staff_Online_role"];
-            
-            // $staff_Online_role = $_SESSION["staff_Online_role"];
-            // $staff_Online_passport =  $_SESSION["staff_Online_passport"];
+            $starter = 0;
+        }elseif(isset($_SESSION["_Online_fullName"])){
+            $client_online_fullname = $_SESSION["_Online_fullName"];
+            $client_online_id = $_SESSION["member_Online_id"];
+            $starter = 1;
         }
     
     }

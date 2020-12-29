@@ -1,25 +1,25 @@
 <?php
 
 
-include "call.php";
+// include "call.php";
 
-include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Contact.php');
+// include ($_SERVER['DOCUMENT_ROOT']."/". $parent_path.'models/Contact.php');
 
 
-function doContactSending () {
-    $contact = new Contact();
+// function doContactSending () {
+//     $contact = new Contact();
 
-    $name = $_POST["yourname"];
-    $subject = $_POST["subject"];
-    $message = $_POST["message"];
-    $email  = $_POST["youremail"];
+//     $name = $_POST["yourname"];
+//     $subject = $_POST["subject"];
+//     $message = $_POST["message"];
+//     $email  = $_POST["youremail"];
 
          
-        if(is_ajax_resquest()){
-            $key = "1234567opiuyt";
-            insertContact($key,$contact,$name,$email,$subject,$message);
-        }
-}
+//         if(is_ajax_resquest()){
+//             $key = "1234567opiuyt";
+//             insertContact($key,$contact,$name,$email,$subject,$message);
+//         }
+// }
 
 
 
@@ -48,15 +48,16 @@ function insertContact($key,$contact,$name,$email,$subject,$message){
                             if($contact->saveContact("`contact_msg_tbl`(`id`, `fullname`, `email`, 
                             `subject`, `message`, `date`, `status`, `deleted`)",
                             "VALUES (null,'$name','$email','$subject','$message',now(),'0','0')")){
-                                echo 1;
+                                echo "<div class='alert alert-success'><b>Sent Successfull!</b> Get back to you ASAP!</div>";
+
                             }else{
-                                echo 0;
+                                echo "<div class='alert alert-danger'><b>Somthing Happened !</b>   Please try again</div>";
                             }
         }
     }
 }
 
-doContactSending();
+// doContactSending();
 
 
 ?>

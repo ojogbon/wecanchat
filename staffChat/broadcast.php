@@ -104,8 +104,8 @@ include "../controllers/Message.php";
 					<div id="fh5co-logo">
 						<h1>
 							<a href="index.html">
-							<?php  $currentuser = $starter === 0 ?  $staff_Online_fullName : $client_online_fullname;
-								echo $currentuser ;
+							<?php  $currentuser = $starter === 0 ?  $staff_Online_fullName:$client_online_fullname;
+								echo $currentuser;
 							?><span>.</span>
 							<small><?php 
 							$role = $starter === 0 ? $staff_role : '';
@@ -127,44 +127,29 @@ include "../controllers/Message.php";
 				</div>
 			</div>
 			<div class="row">
-				<?php 	
-				
-						if(!empty($_GET)){
-						$reciver_id = $_GET["reciever"];
-						
-					if (!empty($reciver_id) || $reciver_id === NULL ){
-				?>
+			
 				<div class="col-md-9 col-padded-right">
 						<div  class="row message_Frame">
-						<?php
-								$staff_id = isset($_SESSION["staff_Online_id"]) ? $_SESSION["staff_Online_id"] : '';
-									$id_it = $starter === 0 ? $staff_id: $client_online_id;
-									$statt = $starter === 0? '1' : '2';
-									$sqlQuery = "select * from message where sender = '".$id_it."' and reciever	 = '".$reciver_id."' OR sender ='".$reciver_id."' and reciever = '".$id_it."'";
-									$listOfMessages = $message->getAllMessageBySql($sqlQuery);
-
-									foreach($listOfMessages  as $individualMessages => $value){
-										$classType = ''; 
-										
-									if($listOfMessages[$individualMessages]["sender"] === $id_it && $listOfMessages[$individualMessages]["status"] === 2){
-										$classType =   "sentMessage";
-											
-									} 
-									 else {
-										$classType = 	"recieveMessage";
-										
-										}
-									?>
-							<p class="<?php echo $classType; ?>"> <?php echo $listOfMessages[$individualMessages]["msg"]; ?></p>
-									<?php }?>
+						
 						</div>
 					<form method="post" enctype="multipart/form-data">
+					
+					<div class="form-group row">
+							<div class="col-md-9 field">
+								<select name="typeof" id="search" class="form-control" >
+								<option value="">Select section to broadcast</option>
+									<option value="1">Client</option>
+									<option value="2">Staffs</option>
+								</select>
+							</div>
+						
+						</div>
 						<div class="form-group row">
 							<div class="col-md-9 field">
 								<input type="text" name="search" id="search" class="form-control" placeholder="Type something...">
 							</div>
 							<div class="col-md-3 field">
-							<button type="submit" id="submit" name="saveDetails" class="btn btn-primary" >send</button>
+							<button type="submit" id="submit" name="saveDetails" class="btn btn-primary" >send a Broadcast </button>
 							</div>
 						</div>
 						
@@ -177,23 +162,48 @@ include "../controllers/Message.php";
 						</div>
 						<?php 
 						
+						$sqlQuery =  "select * from member" ;
+						$listOfClients = $member->getAllMemberBySql($sqlQuery);
+
+
+						$sqlQuery_ = $starter === 0 ? "select * from staff_tbl where id != '".$staff_id."' and status = '0'" : "select * from staff_tbl and status = '0'" ;
+						$listOfStaffs = $staff->getAllStaffBySql($sqlQuery_);
+						
 							if(isset($_POST["saveDetails"])){
 
-								$search = $_POST["search"];
+								 $search = $_POST["search"];
+								 $typeof_ = $_POST["typeof"];
 								
-							
 
-								 $type = "text";
-								 $key = "1234567opiuyt";
-								 $stat = $starter === 0 ? '1' : '2';
-								 $ids = $starter === 0 ? $staff_id : $client_online_id;
-								 insertMessage($message,$key, $ids,$reciver_id,$search,$type,$stat);
+
+								if($typeof_ === "1"){
+										
+									for($in_it =  0; $in_it < count($listOfClients); $in_it ++ ){
+										$type = "text";
+										$key = "1234567opiuyt";
+										$stat = $starter === 0? '1' : '2';
+										insertMessage($message,$key, $staff_id,$listOfClients[$in_it]["id"],$search,$type,$stat);
+									}
+								 echo "Done!";
+								 }
+							
+								if($typeof_ === "2"){
+										echo 878;
+									for($in_it =  0; $in_it < count($listOfStaffs); $in_it ++ ){
+										echo $in_it;
+										$type = "text";
+										$key = "1234567opiuyt";
+										$stat = $starter === 0? '1' : '2';
+										insertMessage($message,$key, $staff_id,$listOfStaffs[$in_it]["id"],$search,$type,$stat);
+									}
+									echo "Done!";
+								}
+								 
 								}
 						?>
 					</form>
 				</div>
-						<?php }}  
-						?>
+
 				<aside id="sidebar">
 					<div class="col-md-3">
 						<div class="side animate-box">
@@ -201,9 +211,8 @@ include "../controllers/Message.php";
 									<h2><span> Staff Online</span></h2>
 								</div>
 								<?php
-										$sqlQuery = $starter === 0 ? "select * from staff_tbl where id != '".$staff_id."' and status = '0'" : "select * from staff_tbl where  status = '0' " ;
 										
-										$listOfStaffs = $staff->getAllStaffBySql($sqlQuery);
+									
 
 										foreach($listOfStaffs  as $individualStaffs => $value){
 
@@ -216,12 +225,8 @@ include "../controllers/Message.php";
 											<h3><?php echo $listOfStaffs[$individualStaffs]["fullname"]?></h3>
 										</div>
 									</a>
-
-
 								</div>
-								<?php }
-								
-								?>
+								<?php }?>
 								
 						</div>
 
@@ -235,8 +240,7 @@ include "../controllers/Message.php";
 								</div>
 								<?php
 										
-										$sqlQuery =  "select * from member" ;
-										$listOfClients = $member->getAllMemberBySql($sqlQuery);
+										
 
 										foreach($listOfClients  as $individualStaffs => $value){
 

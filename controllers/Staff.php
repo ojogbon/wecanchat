@@ -188,6 +188,44 @@ function updateStaffDtails ($staff,$key,$firstname,$lastname,$passport,$role, $s
 
 }
 
+/**
+ *  this function handles the 
+ *  edit of a user details
+ * 
+ *  @param $staff
+ *  @param $key
+ *  @param $firstname
+ *  @param $lastname 
+ *  @param $passport
+ *  @param $role
+ *  @param $staff_id
+ * 
+*/
+
+function deleteStaff ($staff,$key,$staff_id){
+
+
+    if(!empty($key) && $key === "1234567opiuyt" ){
+        
+        if(isEmpty([$staff,$staff_id])){
+            echo "<div class='alert alert-danger'><b>Feilds can't be empty!</b>   Please try again</div>";
+        }else{
+        
+                $sql = "update staff_tbl set status = '1' where id = '$staff_id' ";
+
+                 if ( $staff->UpdateStaff($sql) == ""){
+                    echo "<div class='alert alert-success'><b> Congratulations!</b>  staff details successfully deleted! </div>";
+                 }else{
+                    echo "<div class='alert alert-danger'><b>Something Happened !</b>   Please try again</div>";
+                 }
+
+        }
+
+
+    }
+
+}
+
 
 
 

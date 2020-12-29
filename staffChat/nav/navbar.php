@@ -14,6 +14,9 @@
                             if(!empty($staff_role) && $staff_role === "admin"){
                             ?>
                             <li><a href="registerStaff.php">Add new Staff</a></li>
+                            <li><a href="deleteStaff.php">Delete staff</a></li>
+                            <li><a href="viewReport.php">View Reports</a></li>
+                            <li><a href="broadcast.php">Broadcast Message</a></li>
                             <?php }?>
                             <li class=""><a href="logout.php">Logout</a></li>
                         </ul>

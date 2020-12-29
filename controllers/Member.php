@@ -76,7 +76,7 @@ function loginMember ($member,$key, $member_email,$member_password){
                           $_SESSION["_Online_fullName"] = $member_Online[0]["firstname"].' '.$member_Online[0]["lastname"] ;
                           $_SESSION["member_Online_id"] = $member_Online[0]["id"];
                       
-                          echo "<script> location.replace('../User/index.php');</script>";
+                          echo "<script> location.replace('../staffChat');</script>";
 
                     }else{
                         echo "<div class='alert alert-danger'><b>No User found for this details!</b>   Please try again</div>";

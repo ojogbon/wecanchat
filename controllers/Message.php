@@ -20,14 +20,15 @@
  * @param $role   
  ***/
 
-function insertMessage($message,$key, $sender,$reciever,$msg,$type){
-
+function insertMessage($message,$key, $sender,$reciever,$msg,$type,$status){
+        echo "   sender :::  ".$sender."  okay    @ ".$reciever."    ! ". $msg ."    % ".$type."    - ".$status;
     if ($key == "1234567opiuyt") {
 
         if ( empty($sender)
         || empty($reciever)
         || empty($msg)
         || empty($type)
+        || empty($status)
     ){
             echo "<div class='alert alert-danger'><b>Fields can't be empty!</b>   Please fill and try again</div>";
         }else{
@@ -38,7 +39,7 @@ function insertMessage($message,$key, $sender,$reciever,$msg,$type){
 
                     if($message->saveMessage(" `message`(`id`, `sender`, `reciever`,
                      `msg`, `type`, `date`, `status`, `deleted`) ",
-                        "VALUES (null,'$sender','$reciever', '$msg','$type',now(),'0','0')")){
+                        "VALUES (null,'$sender','$reciever', '$msg','$type',now(),'$status','0')")){
     
                               echo "<script type='text/javascript'> window.location.replace('index.php?reciever=".$reciever."&key=&action_type=&function_type&staff_id');</script>";
                     }else{
